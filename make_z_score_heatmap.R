@@ -3,7 +3,7 @@ setwd("~/Desktop/PhD_Project_related/CR705_WT_P7ko_RNAseq_July2024")
 library(dplyr)
 `%ni%`=Negate(`%in%`)
 
-parp7ko=read.csv(file="PARP7KO_vs_WT_use.csv",header = T,stringsAsFactors = F)
+parp7ko=read.csv(file="PARP7KO_vs_WT.csv",header = T,stringsAsFactors = F)
 
 parp7ko_noGm_riken=parp7ko[- grep("RIKEN",parp7ko$Genename),]
 #parp7ko_noGm_riken=parp7ko_noGm_riken[complete.cases(parp7ko_noGm_riken),]
