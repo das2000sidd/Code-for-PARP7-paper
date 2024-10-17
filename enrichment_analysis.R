@@ -5,7 +5,7 @@ library(dplyr)
 `%ni%` = Negate(`%in%`)
 
 
-parp7ko_vs_wt=read.csv(file="PARP7KO_vs_WT_use.csv",header = T,stringsAsFactors = F,row.names = 7)
+parp7ko_vs_wt=read.csv(file="PARP7KO_vs_WT.csv",header = T,stringsAsFactors = F,row.names = 7)
 
 
 library(org.Mm.eg.db)
