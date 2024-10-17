@@ -8,37 +8,13 @@ library(dplyr)
 parp7ko_vs_wt=read.csv(file="PARP7KO_vs_WT.csv",header = T,stringsAsFactors = F,row.names = 7)
 
 
-library(org.Mm.eg.db)
-
-
-
-
-length(parp7ko_vs_wt_dn_g)
-
-
-
-
-
-## various macrophage types for WT
-
-parp7ko_noGm_riken=parp7ko_vs_wt[- grep("RIKEN",parp7ko_vs_wt$Genename),]
-#parp7ko_noGm_riken=parp7ko_noGm_riken[complete.cases(parp7ko_noGm_riken),]
-parp7ko_noGm_riken=parp7ko_noGm_riken[- grep("predicted",parp7ko_noGm_riken$Genename),]
-parp7ko_noGm_riken=parp7ko_noGm_riken[- grep("Riken",parp7ko_noGm_riken$Genename),]
-parp7ko_noGm_riken=parp7ko_noGm_riken[- grep("pseudogene",parp7ko_noGm_riken$Genename),]
-
 parp7ko_vs_wt_up=subset(parp7ko_noGm_riken,parp7ko_noGm_riken$log2FoldChange > 1 & parp7ko_noGm_riken$padj < 0.01)
 
 parp7ko_vs_wt_up_g=parp7ko_vs_wt_up$Symbol
 
-
 parp7ko_vs_wt_dn=subset(parp7ko_noGm_riken,parp7ko_noGm_riken$log2FoldChange < -1 & parp7ko_noGm_riken$padj < 0.01)
 
 parp7ko_vs_wt_dn_g=parp7ko_vs_wt_dn$Symbol
-
-
-
-
 
 library(clusterProfiler)
 library(msigdbr)
@@ -47,8 +23,6 @@ library(magrittr)
 
 msigdbr_species()
 
-#mm_GO_df <- msigdbr(species = "Mus musculus",category = "M5",subcategory = "GO")
-#mm_pathways_df <- msigdbr(species = "Mus musculus",category = "M2",subcategory = "CP")
 mm_msigdb_df <- msigdbr(species = "Mus musculus")
 
 head(mm_msigdb_df)
@@ -76,11 +50,11 @@ hs_Reactome_df <- mm_msigdb_df %>%
 
 
 parp7ko_vs_wt_sig_genes=c(parp7ko_vs_wt_dn_g,parp7ko_vs_wt_up_g)
-## ONLY RESULTS TO USE
 
 
-## parp7ko
-GO_ora_results <- enricher(
+
+## parp7ko GO enrichment
+Reactome_ora_results <- enricher(
   gene = parp7ko_vs_wt_sig_genes, # A vector of your genes of interest
   pvalueCutoff = 0.05, # Can choose a FDR cutoff
   pAdjustMethod = "BH",
@@ -94,18 +68,18 @@ GO_ora_results <- enricher(
   )
 )
 
-View(GO_ora_results@result)
+View(Reactome_ora_results@result)
 enrich_plot <- enrichplot::dotplot(GO_ora_results, showCategory=15,font.size=8,title="Reactome terms for signifcant DEG in PARP7KO vs WT for CR705 tumor",orderBy= "p.adjust", decreasing = FALSE)
 enrich_plot
 
 
-write.table(GO_ora_results_parp7ko@result,file="GO term enrichment for genes up in M2 relative to M0 for parp7ko terms.txt",col.names = T,row.names = T,sep="\t",quote = F)
+write.table(Reactome_ora_results@result,file="GO term enrichment for genes up in M2 relative to M0 for parp7ko terms.txt",col.names = T,row.names = T,sep="\t",quote = F)
 
 DEG_list=subset(parp7ko_vs_wt,abs(parp7ko_vs_wt$log2FoldChange) > 1 & parp7ko_vs_wt$padj < 0.01)
 
 
 library(grid)
-pdf(file="Reactome_for_significant_DEGs_in_CR705_PARP7KO_vs_WT.pdf",height = 8,width = 9)
+pdf(file="Reactome_terms_for_significant_DEGs_in_CR705_PARP7KO_vs_WT.pdf",height = 8,width = 9)
 grid.draw(enrich_plot)
 dev.off()
 
