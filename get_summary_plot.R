@@ -2,7 +2,7 @@ setwd("~/Desktop/PhD_Project_related/CR705_WT_P7ko_RNAseq_July2024")
 
 
 norm_counts=read.table(file="Normalised_CPM_count.txt",header = T,stringsAsFactors = F,sep="\t")
-parp7ko_vs_wt=read.csv(file="PARP7KO_vs_WT_use.csv",header = T,stringsAsFactors = F,row.names = 7)
+parp7ko_vs_wt=read.csv(file="PARP7KO_vs_WT.csv",header = T,stringsAsFactors = F,row.names = 7)
 adjp=0.01
 parp7ko_vs_wt=parp7ko_vs_wt[,c(1:8)]
 
