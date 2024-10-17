@@ -159,6 +159,7 @@ View(parp7ko_vs_wt_sig)
 
 
 write.csv(parp7ko_vs_wt_sig,file="PARP7KO_vs_WT_sig_Genes.csv",col.names = T,row.names = F,quote = F)
+write.csv(res_wt_vs_parp7ko_df,file="PARP7KO_vs_WT.csv",col.names = T,row.names = F,quote = F)
 
 
 
