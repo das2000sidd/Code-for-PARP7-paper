@@ -6,6 +6,7 @@ library(ensembldb)
 library(EnsDb.Mmusculus.v79)
 library(biomaRt)
 library(tibble)
+library(tximport)
 
 res=read.table(file="GRCm39_gene_and_transcript_stable_ID_version.txt",header = T,sep="\t",stringsAsFactors = F)
 res=res[,c(1,4)]
@@ -31,8 +32,6 @@ files=as.data.frame(all_files)
 
 files_quant=paste(files$all_files,"/quant.sf",sep="")
 
-
-library(tximport)
 
 sample_order=c(paste("WT",1:7,sep=""),paste("PARP7KO",1:9,sep=""))
 
