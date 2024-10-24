@@ -143,7 +143,7 @@ write.csv(res_wt_vs_parp7ko_df,file="PARP7KO_vs_WT.csv",col.names = T,row.names 
 library(edgeR)
 cpm.nor.count=cpm(dds,normalized.lib.sizes = TRUE,log=TRUE)
 
-write.table(cpm.nor.count,file="Normalised_CPM_count.txt",col.names = T,row.names = T,sep="\t",quote = F)
+write.table(cpm.nor.count,file="LogNormalised_CPM_count.txt",col.names = T,row.names = T,sep="\t",quote = F)
 write.table(rownames(dds),file="Genes_used.txt",col.names = T,row.names = T,sep="\t",quote = F)
 
 
