@@ -101,9 +101,6 @@ head(assay(vsd), 3)
 colData(vsd)
 
 
-rld <- rlog(dds, blind = FALSE)
-head(assay(rld), 3)
-
 
 library("dplyr")
 library("ggplot2")
