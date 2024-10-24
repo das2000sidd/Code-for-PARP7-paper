@@ -2,28 +2,9 @@ setwd("~/Desktop/PhD_Project_related/CR705_WT_P7ko_RNAseq_July2024")
 
 
 library(tximportData)
-
-library(TxDb.Mmusculus.UCSC.mm39.refGene)
-library(BSgenome.Mmusculus.UCSC.mm10)
-
-txdb = TxDb.Mmusculus.UCSC.mm39.refGene
-keytypes(txdb)
-columns(txdb)
-
-k <- keys(txdb, keytype = "TXNAME")
-tx2gene <- select(txdb, k, "GENEID", "TXNAME")
-
 library(ensembldb)
 library(EnsDb.Mmusculus.v79)
 library(biomaRt)
-#ensembl <- useMart("ensembl", dataset = "mmusculus_gene_ensembl")
-#head(listAttributes(ensembl))
-#myAttributes <- c("ensembl_gene_id","ensembl_transcript_id_version")
-
-#res <- getBM(attributes =  myAttributes,
-     #        mart = ensembl)
-
-
 library(tibble)
 
 res=read.table(file="GRCm39_gene_and_transcript_stable_ID_version.txt",header = T,sep="\t",stringsAsFactors = F)
