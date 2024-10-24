@@ -53,7 +53,7 @@ parp7ko_vs_wt_sig_genes=c(parp7ko_vs_wt_dn_g,parp7ko_vs_wt_up_g)
 
 
 
-## parp7ko GO enrichment
+## parp7ko Reactome enrichment
 Reactome_ora_results <- enricher(
   gene = parp7ko_vs_wt_sig_genes, # A vector of your genes of interest
   pvalueCutoff = 0.05, # Can choose a FDR cutoff
