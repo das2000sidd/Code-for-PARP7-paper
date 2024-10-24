@@ -6,23 +6,13 @@ parp7ko_vs_wt=read.csv(file="PARP7KO_vs_WT.csv",header = T,stringsAsFactors = F,
 adjp=0.01
 parp7ko_vs_wt=parp7ko_vs_wt[,c(1:8)]
 
-#parp7ko_vs_wt=parp7ko_vs_wt[complete.cases(parp7ko_vs_wt),]
+
 parp7ko_vs_wt$baseMean_log=log2(parp7ko_vs_wt$baseMean+1)
 parp7ko_vs_wt$Ensembl=rownames(parp7ko_vs_wt)
 
-library(org.Mm.eg.db)
-
-parp7ko_vs_wt$Entrez <- mapIds(org.Mm.eg.db, parp7ko_vs_wt$Ensembl,keytype="ENSEMBL", column="ENTREZID")
-parp7ko_vs_wt$Symbol <- mapIds(org.Mm.eg.db, parp7ko_vs_wt$Entrez,keytype="ENTREZID", column="SYMBOL")
-parp7ko_vs_wt$Genename <- mapIds(org.Mm.eg.db, parp7ko_vs_wt$Entrez,keytype="ENTREZID", column="GENENAME")
-
-parp7ko_vs_wt$Entrez=as.character(parp7ko_vs_wt$Entrez)
-parp7ko_vs_wt$Symbol=as.character(parp7ko_vs_wt$Symbol)
-parp7ko_vs_wt$Genename=as.character(parp7ko_vs_wt$Genename)
-
 
 library(dplyr)
-library(biomaRt)
+
 
 
 parp7ko_vs_wt$Neg_log_p_val=-log10(parp7ko_vs_wt$padj)
@@ -42,15 +32,6 @@ parp7ko_vs_wt$Ensembl=rownames(parp7ko_vs_wt)
 
 parp7ko_vs_wt=left_join(parp7ko_vs_wt,parp7ko_vs_wt_sig,by=c("Ensembl"))
 parp7ko_vs_wt$parp7ko_vs_wt_Direction[is.na(parp7ko_vs_wt$parp7ko_vs_wt_Direction)]="No sig change"
-
-
-
-
-#table(parp7ko_vs_wt=parp7ko_vs_wt_sig_up$parp7ko_vs_wt_Direction,`parp7ko_vs_wt Up`=parp7ko_vs_wt_sig_up$parp7ko_vs_wt_Direction)
-
-
-parp7ko_vs_wt$baseMean_log=log2(parp7ko_vs_wt$baseMean+1)
-
 
 
 parp7ko_vs_wt_sig_up=subset(parp7ko_vs_wt,parp7ko_vs_wt$log2FoldChange>1 & parp7ko_vs_wt$padj < 0.01)
