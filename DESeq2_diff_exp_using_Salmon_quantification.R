@@ -21,8 +21,8 @@ files=list.files(path="/Users/siddhaduio.no/Desktop/PhD_Project_related/CR705_WT
 
 
 
-files_G12=files[grep("G12",files)]
-files_G13=files[grep("G13",files)]
+files_G12=files[grep("G12",files)] ## WT
+files_G13=files[grep("G13",files)] ## PARP7KO
 
 all_files=c(files_G12,files_G13)
 
